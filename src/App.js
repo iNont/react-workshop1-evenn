@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Moment from 'moment';
 import './App.css';
+
+import { setField } from './redux.js';
 
 const CLOSE_TIME = Moment('2018-04-01 12:00');
 const initialState = {
@@ -18,9 +21,9 @@ class App extends Component {
   }
 
   onChange(target, event) {
-    let obj = {};
-    obj[target] = event.target.value;
-    this.setState(obj);
+    this.setState({
+      [target]: event.target.value
+    });
   }
 
   selectIsAddedFood(isAddedFood) {
@@ -28,9 +31,9 @@ class App extends Component {
   }
 
   onChangeToggle(target, event) {
-    let obj = {};
-    obj[target] = !this.state[target];
-    this.setState(obj);
+    this.setState({
+      [target]: !this.state[target]
+    });
   }
 
   componentDidMount() {
@@ -143,4 +146,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(state => state, { setField })(App);
