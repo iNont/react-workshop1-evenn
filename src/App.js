@@ -94,7 +94,7 @@ class App extends Component {
               <label className="radio">
                 <input type="radio" name="question" checked={this.props.isAddedFood}
                   onChange={this.onChangeToggle.bind(this, "isAddedFood")} />
-                <span> Yes</span>
+                <span> Yes (+50THB)</span>
               </label>
               <label className="radio">
                 <input type="radio" name="question" checked={!this.props.isAddedFood}
@@ -114,7 +114,7 @@ class App extends Component {
             </div>
           </div>
 
-          { this.props.ticketType && <p>Price: {`${price}THB`}</p> }
+          { this.props.ticketType && <p>Price: {`${price + (this.props.isAddedFood ? 50 : 0)}THB`}</p> }
 
           <div className="field is-grouped">
             <div className="control">
