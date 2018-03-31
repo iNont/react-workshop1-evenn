@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Moment from 'moment';
 import './App.css';
-
+import Input from './components/Input.js';
 import { setField, resetForm } from './redux.js';
 
 const CLOSE_TIME = Moment('2018-04-01 12:00');
@@ -49,30 +49,12 @@ class App extends Component {
         <div className="container">
           <h1 className="title">Evenn Registration Form</h1>
           <p>{`Registration will be closed in ${countdown}.`}</p>
-          <div className="field">
-            <label className="label">Name</label>
-            <div className="control">
-              <input className="input" type="text" placeholder="Text input"
-                value={this.props.name}
-                onChange={this.onChange.bind(this, "name")} />
-            </div>
-          </div>
+          
+          <Input label="Name" placeholder="Enter your name" value={this.props.name}
+            onChange={this.onChange.bind(this, "name")} />
 
-          <div className="field">
-            <label className="label">Email</label>
-            <div className="control has-icons-left has-icons-right">
-              <input className="input" type="email" placeholder="Email input"
-              value={this.props.email}
-                onChange={this.onChange.bind(this, "email")} />
-              <span className="icon is-small is-left">
-                <i className="fas fa-envelope"></i>
-              </span>
-              <span className="icon is-small is-right">
-                <i className="fas fa-exclamation-triangle"></i>
-              </span>
-            </div>
-            <p className="help is-danger">This email is invalid</p>
-          </div>
+          <Input label="Email" type="email" placeholder="Enter your email" value={this.props.email} icon="envelope"
+            onChange={this.onChange.bind(this, "email")} />
 
           <div className="field">
             <label className="label">Ticket Type</label>
