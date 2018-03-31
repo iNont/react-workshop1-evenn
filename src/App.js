@@ -100,7 +100,8 @@ class App extends Component {
             </div>
           </div>
 
-          { this.props.ticketType && <p>Price: {`${price + (this.props.isAddedFood ? 50 : 0)}THB`}</p> }
+          { this.props.ticketType ? <p>Price: {`${price + (this.props.isAddedFood ? 50 : 0)}THB`}</p>
+          : <p className="help is-danger">Please select ticket type..</p> }
 
           <div className="field is-grouped">
             <div className="control">
