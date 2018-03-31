@@ -44,17 +44,21 @@ class App extends Component {
     let duration = Moment.duration(CLOSE_TIME.diff(Moment()));
     let countdown = `${duration.asHours()|0} hours ${duration.minutes()} minutes ${duration.seconds()} seconds`;
 
+    let isErrorName = /[^\w ]|\d/.test(this.props.name);
+    let emailRegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let isErrorEmail = this.props.email && !emailRegExp.test(this.props.email);
+
     return (
       <section className="section">
         <div className="container">
           <h1 className="title">Evenn Registration Form</h1>
           <p>{`Registration will be closed in ${countdown}.`}</p>
-          
+
           <Input label="Name" placeholder="Enter your name" value={this.props.name}
-            onChange={this.onChange.bind(this, "name")} />
+            onChange={this.onChange.bind(this, "name")} error={isErrorName ? "Invalid name.." : "" } />
 
           <Input label="Email" type="email" placeholder="Enter your email" value={this.props.email} icon="envelope"
-            onChange={this.onChange.bind(this, "email")} />
+            onChange={this.onChange.bind(this, "email")} error={isErrorEmail ? "Invalid email.." : "" } />
 
           <div className="field">
             <label className="label">Ticket Type</label>
