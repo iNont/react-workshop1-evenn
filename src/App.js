@@ -24,9 +24,7 @@ class App extends Component {
   }
 
   selectIsAddedFood(isAddedFood) {
-    this.setState({
-      isAddedFood: isAddedFood
-    });
+    this.setState({ isAddedFood });
   }
 
   onChangeToggle(target, event) {
