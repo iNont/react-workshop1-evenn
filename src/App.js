@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Moment from 'moment';
 import './App.css';
 
+const CLOSE_TIME = Moment('2018-04-01 12:00');
 const initialState = {
   name: "",
   email: "",
@@ -34,6 +35,14 @@ class App extends Component {
     });
   }
 
+  componentDidMount() {
+    this.countdownInterval = setInterval(()=>this.forceUpdate(), 1000);
+  }
+
+  componentWillUnmount() {
+    window.clearInterval(this.countdownInterval);
+  }
+
   render() {
     let ticketTypes = [{
       key: "regular",
@@ -45,10 +54,16 @@ class App extends Component {
       price: 300
     }];
 
+    let price = (ticketTypes.find(e=>e.key === this.state.ticketType) || {}).price;
+
+    let duration = Moment.duration(CLOSE_TIME.diff(Moment()));
+    let countdown = `${duration.asHours()|0} hours ${duration.minutes()} minutes ${duration.seconds()} seconds`;
+
     return (
       <section className="section">
         <div className="container">
           <h1 className="title">Evenn Registration Form</h1>
+          <p>{`Registration will be closed in ${countdown}.`}</p>
           <div className="field">
             <label className="label">Name</label>
             <div className="control">
@@ -114,7 +129,7 @@ class App extends Component {
             </div>
           </div>
 
-          { this.state.ticketType && <p>Price: {`${ticketTypes.find(e=>e.key === this.state.ticketType).price}THB`}</p> }
+          { this.state.ticketType && <p>Price: {`${price}THB`}</p> }
 
           <div className="field is-grouped">
             <div className="control">
