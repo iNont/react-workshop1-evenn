@@ -2,16 +2,18 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+const initialState = {
+  name: "",
+  email: "",
+  ticketType: "",
+  isAddedFood: false,
+  agreedTerms: false
+};
+
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      name: "",
-      email: "",
-      ticketType: "",
-      isAddedFood: false,
-      agreedTerms: false
-    };
+    this.state = initialState;
   }
 
   onChange(target, event) {
@@ -119,7 +121,7 @@ class App extends Component {
               <button className="button is-link">Register</button>
             </div>
             <div className="control">
-              <button className="button is-text">Reset</button>
+              <button className="button is-text" onClick={()=>this.setState(initialState)}>Reset</button>
             </div>
           </div>
         </div>
