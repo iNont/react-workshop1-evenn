@@ -45,7 +45,7 @@ class App extends Component {
     let countdown = `${duration.asHours()|0} hours ${duration.minutes()} minutes ${duration.seconds()} seconds`;
 
     let isErrorName = /[^\w ]|\d/.test(this.props.name);
-    let emailRegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let emailRegExp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     let isErrorEmail = this.props.email && !emailRegExp.test(this.props.email);
 
     return (
