@@ -65,7 +65,7 @@ class App extends Component {
             <div className="control">
               <div className="select">
                 <select value={this.props.ticketType} onChange={this.onChange.bind(this, "ticketType")}>
-                  <option>Select type..</option>
+                  <option value="">Select type..</option>
                   {ticketTypes.map(e=>
                     <option value={e.key} key={e.key}>{`${e.type} - ${e.price}THB`}</option>
                   )}
