@@ -29,10 +29,10 @@ class App extends Component {
     });
   }
 
-  onChangeAgreedTerms(event) {
-    this.setState({
-      agreedTerms: event.target.checked
-    });
+  onChangeToggle(target, event) {
+    let obj = {};
+    obj[target] = !this.state[target];
+    this.setState(obj);
   }
 
   componentDidMount() {
@@ -108,12 +108,12 @@ class App extends Component {
             <div className="control">
               <label className="radio">
                 <input type="radio" name="question" checked={this.state.isAddedFood}
-                  onClick={this.selectIsAddedFood.bind(this, true)} />
+                  onChange={this.onChangeToggle.bind(this, "isAddedFood")} />
                 <span> Yes</span>
               </label>
               <label className="radio">
                 <input type="radio" name="question" checked={!this.state.isAddedFood}
-                  onClick={this.selectIsAddedFood.bind(this, false)} />
+                  onChange={this.onChangeToggle.bind(this, "isAddedFood")} />
                 <span> No</span>
               </label>
             </div>
@@ -123,8 +123,8 @@ class App extends Component {
             <div className="control">
               <label className="checkbox">
                 <input type="checkbox" checked={this.state.agreedTerms}
-                  onChange={this.onChangeAgreedTerms.bind(this)} />
-                <span> I agree to the <a href="#">terms and conditions</a></span>
+                  onChange={this.onChangeToggle.bind(this, "agreedTerms")} />
+                <span> I agree to the <a href="">terms and conditions</a></span>
               </label>
             </div>
           </div>
