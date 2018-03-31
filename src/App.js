@@ -3,37 +3,21 @@ import { connect } from 'react-redux';
 import Moment from 'moment';
 import './App.css';
 
-import { setField } from './redux.js';
+import { setField, resetForm } from './redux.js';
 
 const CLOSE_TIME = Moment('2018-04-01 12:00');
-const initialState = {
-  name: "",
-  email: "",
-  ticketType: "",
-  isAddedFood: false,
-  agreedTerms: false
-};
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = initialState;
-  }
-
   onChange(target, event) {
-    this.setState({
-      [target]: event.target.value
-    });
+    this.props.setField(target, event.target.value);
   }
 
   selectIsAddedFood(isAddedFood) {
-    this.setState({ isAddedFood });
+    this.props.setField("isAddedFood", isAddedFood);
   }
 
   onChangeToggle(target, event) {
-    this.setState({
-      [target]: !this.state[target]
-    });
+    this.props.setField(target, !this.props[target]);
   }
 
   componentDidMount() {
@@ -55,7 +39,7 @@ class App extends Component {
       price: 300
     }];
 
-    let price = (ticketTypes.find(e=>e.key === this.state.ticketType) || {}).price;
+    let price = (ticketTypes.find(e=>e.key === this.props.ticketType) || {}).price;
 
     let duration = Moment.duration(CLOSE_TIME.diff(Moment()));
     let countdown = `${duration.asHours()|0} hours ${duration.minutes()} minutes ${duration.seconds()} seconds`;
@@ -69,7 +53,7 @@ class App extends Component {
             <label className="label">Name</label>
             <div className="control">
               <input className="input" type="text" placeholder="Text input"
-                value={this.state.name}
+                value={this.props.name}
                 onChange={this.onChange.bind(this, "name")} />
             </div>
           </div>
@@ -78,7 +62,7 @@ class App extends Component {
             <label className="label">Email</label>
             <div className="control has-icons-left has-icons-right">
               <input className="input" type="email" placeholder="Email input"
-              value={this.state.email}
+              value={this.props.email}
                 onChange={this.onChange.bind(this, "email")} />
               <span className="icon is-small is-left">
                 <i className="fas fa-envelope"></i>
@@ -94,7 +78,7 @@ class App extends Component {
             <label className="label">Ticket Type</label>
             <div className="control">
               <div className="select">
-                <select value={this.state.ticketType} onChange={this.onChange.bind(this, "ticketType")}>
+                <select value={this.props.ticketType} onChange={this.onChange.bind(this, "ticketType")}>
                   <option>Select type..</option>
                   {ticketTypes.map(e=>
                     <option value={e.key} key={e.key}>{`${e.type} - ${e.price}THB`}</option>
@@ -108,12 +92,12 @@ class App extends Component {
             <label className="label">Add food?</label>
             <div className="control">
               <label className="radio">
-                <input type="radio" name="question" checked={this.state.isAddedFood}
+                <input type="radio" name="question" checked={this.props.isAddedFood}
                   onChange={this.onChangeToggle.bind(this, "isAddedFood")} />
                 <span> Yes</span>
               </label>
               <label className="radio">
-                <input type="radio" name="question" checked={!this.state.isAddedFood}
+                <input type="radio" name="question" checked={!this.props.isAddedFood}
                   onChange={this.onChangeToggle.bind(this, "isAddedFood")} />
                 <span> No</span>
               </label>
@@ -123,21 +107,21 @@ class App extends Component {
           <div className="field">
             <div className="control">
               <label className="checkbox">
-                <input type="checkbox" checked={this.state.agreedTerms}
+                <input type="checkbox" checked={this.props.agreedTerms}
                   onChange={this.onChangeToggle.bind(this, "agreedTerms")} />
                 <span> I agree to the <a href="">terms and conditions</a></span>
               </label>
             </div>
           </div>
 
-          { this.state.ticketType && <p>Price: {`${price}THB`}</p> }
+          { this.props.ticketType && <p>Price: {`${price}THB`}</p> }
 
           <div className="field is-grouped">
             <div className="control">
               <button className="button is-link">Register</button>
             </div>
             <div className="control">
-              <button className="button is-text" onClick={()=>this.setState(initialState)}>Reset</button>
+              <button className="button is-text" onClick={this.props.resetForm}>Reset</button>
             </div>
           </div>
         </div>
@@ -146,4 +130,4 @@ class App extends Component {
   }
 }
 
-export default connect(state => state, { setField })(App);
+export default connect(state => state, { setField, resetForm })(App);
