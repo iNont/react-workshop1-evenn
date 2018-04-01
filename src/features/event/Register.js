@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Moment from 'moment';
-import './App.css';
-import Input from './components/Input.js';
-import { setField, resetForm } from './redux.js';
+import './Register.css';
+import Input from '../../common/Input';
+import { setField, resetForm } from './redux';
 
 const CLOSE_TIME = Moment('2018-04-01 12:00');
 
-class App extends Component {
+class Register extends Component {
   onChange(target, event) {
     this.props.setField(target, event.target.value);
   }
@@ -114,4 +114,4 @@ class App extends Component {
   }
 }
 
-export default connect(state => state, { setField, resetForm })(App);
+export default connect(state => state, { setField, resetForm })(Register);
