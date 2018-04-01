@@ -12,10 +12,6 @@ class App extends Component {
     this.props.setField(target, event.target.value);
   }
 
-  selectIsAddedFood(isAddedFood) {
-    this.props.setField("isAddedFood", isAddedFood);
-  }
-
   onChangeToggle(target, event) {
     this.props.setField(target, !this.props[target]);
   }
@@ -112,6 +108,7 @@ class App extends Component {
             </div>
           </div>
         </div>
+        <div className={"loading-overlay"+(this.props.loading?" show":"")}></div>
       </section>
     );
   }

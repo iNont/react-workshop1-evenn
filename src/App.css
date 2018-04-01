@@ -11,19 +11,35 @@
   height: 80px;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.loading-overlay {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: white;
+  opacity: 0;
+  z-index: 1000;
+  pointer-events: none;
+  transition: all 0.3s;
 }
-
-.App-title {
-  font-size: 1.5em;
+.loading-overlay.show {
+  opacity: 0.9;
+  pointer-events: auto;
 }
-
-.App-intro {
-  font-size: large;
+.loading-overlay::before {
+  content: '';
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: solid 8px forestGreen;
+  border-left-color: darkGreen;
+  animation: App-logo-spin infinite 1s linear;
+}
+.loading-overlay::after {
+  content: "Reseting form..";
+  margin-top: 10px;
 }
 
 @keyframes App-logo-spin {

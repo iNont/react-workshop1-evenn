@@ -1,12 +1,15 @@
 const SET_FIELD = "SET_FIELD";
 const RESET_FORM = "RESET_FORM";
+const RESET_FORM_PENDING = "RESET_FORM_PENDING";
+const RESET_FORM_FULFILLED = "RESET_FORM_FULFILLED";
 
 const initialState = {
   name: "",
   email: "",
   ticketType: "",
   isAddedFood: false,
-  agreedTerms: false
+  agreedTerms: false,
+  loading: false
 };
 
 export default (state = initialState, action) => {
@@ -16,7 +19,12 @@ export default (state = initialState, action) => {
         ...state,
         [action.key]: action.value
       };
-    case RESET_FORM:
+    case RESET_FORM_PENDING:
+      return {
+        ...state,
+        loading: true
+      };
+    case RESET_FORM_FULFILLED:
       return initialState;
     default:
       return state;
@@ -28,5 +36,8 @@ export const setField = (key, value) => ({
 });
 
 export const resetForm = () => ({
-  type: RESET_FORM
+  type: RESET_FORM,
+  payload: new Promise((resolve, reject) => {
+    setTimeout(()=>resolve() , 2000)
+  })
 });
