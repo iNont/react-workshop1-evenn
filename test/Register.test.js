@@ -18,4 +18,10 @@ describe("<Register />", () => {
     expect(wrapper.find("#RegisterPrice").hasClass("is-danger")).to.equal(true);
     expect(wrapper.find("#RegisterPrice").text()).to.equal("Please select ticket type..");
   });
+
+  it("Should have Price: 100THB when select regular type", () => {
+    const wrapper = shallow(<Register ticketType="regular" />);
+    expect(wrapper.find("#RegisterPrice").hasClass("is-danger")).to.equal(false);
+    expect(wrapper.find("#RegisterPrice").text()).to.equal("Price: 100THB");
+  });
 });
