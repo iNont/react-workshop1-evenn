@@ -5,7 +5,21 @@ import './Register.css';
 import Input from '../../common/Input';
 import { setField, resetForm } from './redux';
 
+import { compose, lifecycle } from 'recompose';
+
 const CLOSE_TIME = Moment('2018-04-01 12:00');
+
+const enhance = compose(
+  connect(state => state, { setField, resetForm }),
+  lifecycle({
+    componentDidMount() {
+      this.countdownInterval = setInterval(()=>this.forceUpdate(), 1000);
+    },
+    componentWillUnmount() {
+      window.clearInterval(this.countdownInterval);
+    }
+  })
+);
 
 export class Register extends Component {
   onChange(target, event) {
@@ -14,14 +28,6 @@ export class Register extends Component {
 
   onChangeToggle(target, event) {
     this.props.setField(target, !this.props[target]);
-  }
-
-  componentDidMount() {
-    this.countdownInterval = setInterval(()=>this.forceUpdate(), 1000);
-  }
-
-  componentWillUnmount() {
-    window.clearInterval(this.countdownInterval);
   }
 
   render() {
@@ -114,4 +120,4 @@ export class Register extends Component {
   }
 }
 
-export default connect(state => state, { setField, resetForm })(Register);
+export default enhance(Register);
