@@ -7,7 +7,7 @@ import { setField, resetForm } from './redux';
 
 const CLOSE_TIME = Moment('2018-04-01 12:00');
 
-class Register extends Component {
+export class Register extends Component {
   onChange(target, event) {
     this.props.setField(target, event.target.value);
   }
@@ -47,7 +47,7 @@ class Register extends Component {
     return (
       <section className="section">
         <div className="container">
-          <h1 className="title">Evenn Registration Form</h1>
+          <h1 id="RegisterTitle" className="title">Evenn Registration Form</h1>
           <p>{`Registration will be closed in ${countdown}.`}</p>
 
           <Input label="Name" placeholder="Enter your name" value={this.props.name}
@@ -96,8 +96,8 @@ class Register extends Component {
             </div>
           </div>
 
-          { this.props.ticketType ? <p>Price: {`${price + (this.props.isAddedFood ? 50 : 0)}THB`}</p>
-          : <p className="help is-danger">Please select ticket type..</p> }
+          { this.props.ticketType ? <p id="RegisterPrice">Price: {`${price + (this.props.isAddedFood ? 50 : 0)}THB`}</p>
+          : <p id="RegisterPrice" className="help is-danger">Please select ticket type..</p> }
 
           <div className="field is-grouped">
             <div className="control">
